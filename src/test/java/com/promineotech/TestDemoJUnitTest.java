@@ -3,6 +3,8 @@ package com.promineotech;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
+import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.spy;
 
 import java.util.stream.Stream;
 
@@ -77,6 +79,14 @@ class TestDemoJUnitTest {
 		assertThatThrownBy(() -> testDemo.verifyMinimumHeightFourFeet(0, 0)).isInstanceOf(IllegalArgumentException.class);
 		assertThatThrownBy(() -> testDemo.verifyMinimumHeightFourFeet(-7, 0)).isInstanceOf(IllegalArgumentException.class);
 		assertThatThrownBy(() -> testDemo.verifyMinimumHeightFourFeet(1, -12)).isInstanceOf(IllegalArgumentException.class);
+	}
+	
+	@Test
+	void assertThatNumberSquaredIsCorrect() {
+		TestDemo mockDemo = spy(testDemo);
+		doReturn(5).when(mockDemo).getRandomInt();
+		int fiveSquared = mockDemo.randomNumberSquared();
+		assertThat(fiveSquared).isEqualTo(25);
 	}
 
 }
